@@ -11,13 +11,17 @@ export class PhonesComponent {
       phones: PhonesService.getAll(),
       onPhoneSelect: (phoneId) => {
         const phoneDetails = PhonesService.getOneById(phoneId);
+        const onBackButtonClick = () => {
+          this._catalog.show();
+          this._details.hide();
+        };
         this._catalog.hide();
-        this._details.show(phoneDetails);
+        this._details.show(phoneDetails, onBackButtonClick);
       }
     });
 
     this._details = new PhoneDetailsComponent({
-      element: this._element.querySelector('.phone-details')
+      element: this._element.querySelector('.phone-details'),
     })
   }
 

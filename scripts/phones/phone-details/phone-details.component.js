@@ -1,44 +1,40 @@
 import {BaseComponent} from "../../shared/components/base.component.js"
 
 export class PhoneDetailsComponent extends BaseComponent {
-  show(phone) {
+
+
+  show(phone, onBackButtonClick) {
     this._phone = phone;
     this._render();
     super.show();
+    document.querySelector('.backButton').addEventListener('click',(e)=>{
+      onBackButtonClick();
+    })
+    document.querySelector('.imageSamples').addEventListener('click',(e)=>{
+      if (e.target.tagName === 'IMG') {
+        const image = document.querySelector('.image');
+        image.src = e.target.src;
+      }
+    })
   }
 
   _render() {
     this._element.innerHTML = `<div>
 
-    <img class="phone" src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
+    <img class="phone image" src="${this._phone.images[0]}">
 
-    <button>Back</button>
+    <button class="backButton">Back</button>
     <button>Add to basket</button>
 
 
-    <h1>Motorola XOOM™ with Wi-Fi</h1>
+    <h1>${this._phone.name}</h1>
 
-    <p>Motorola XOOM with Wi-Fi has a super-powerful dual-core processor and Android™ 3.0 (Honeycomb) — the Android platform designed specifically for tablets. With its 10.1-inch HD widescreen display, you’ll enjoy HD video in a thin, light, powerful and upgradeable tablet.</p>
+    <p>${this._phone.description}</p>
 
-    <ul class="phone-thumbs">
-      <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
-      </li>
-      <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.1.jpg">
-      </li>
-      <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.2.jpg">
-      </li>
-      <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.3.jpg">
-      </li>
-      <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.4.jpg">
-      </li>
-      <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.5.jpg">
-      </li>
+    <ul class="phone-thumbs imageSamples">
+        ${this._phone.images.map((image) => `<li>
+        <img src="${image}">
+      </li>`).join('')}
     </ul>
 
   </div>`;
