@@ -7,12 +7,12 @@ export class PhoneDetailsComponent extends BaseComponent {
     this._phone = phone;
     this._render();
     super.show();
-    document.querySelector('.backButton').addEventListener('click',(e)=>{
+    this._element.querySelector('.backButton').addEventListener('click',(e)=>{
       onBackButtonClick();
     })
-    document.querySelector('.imageSamples').addEventListener('click',(e)=>{
+    const image = this._element.querySelector('.image');
+    this._element.querySelector('.imageSamples').addEventListener('click',(e)=>{
       if (e.target.tagName === 'IMG') {
-        const image = document.querySelector('.image');
         image.src = e.target.src;
       }
     })
