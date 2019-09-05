@@ -1,42 +1,49 @@
-import {BaseComponent} from "../../shared/components/base.component.js"
+import {BaseComponent} from "../../shared/componets/base.component.js";
 
-export class PhoneDetailsComponent extends BaseComponent {
+export class PhoneDetailsComponent extends BaseComponent{
 
+    show(phone) {
+        this._phone = phone;
+        this._render();
+        super.show();
+    }
 
-  show(phone, onBackButtonClick) {
-    this._phone = phone;
-    this._render();
-    super.show();
-    this._element.querySelector('.backButton').addEventListener('click',(e)=>{
-      onBackButtonClick();
-    })
-    const image = this._element.querySelector('.image');
-    this._element.querySelector('.imageSamples').addEventListener('click',(e)=>{
-      if (e.target.tagName === 'IMG') {
-        image.src = e.target.src;
-      }
-    })
-  }
+    _render() {
+        this._element.innerHTML = `
+          <div>
 
-  _render() {
-    this._element.innerHTML = `<div>
+    <img class="phone" src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
 
-    <img class="phone image" src="${this._phone.images[0]}">
-
-    <button class="backButton">Back</button>
+    <button>Back</button>
     <button>Add to basket</button>
 
 
-    <h1>${this._phone.name}</h1>
+    <h1>Motorola XOOM™ with Wi-Fi</h1>
 
-    <p>${this._phone.description}</p>
+    <p>Motorola XOOM with Wi-Fi has a super-powerful dual-core processor and Android™ 3.0 (Honeycomb) — the Android platform designed specifically for tablets. With its 10.1-inch HD widescreen display, you’ll enjoy HD video in a thin, light, powerful and upgradeable tablet.</p>
 
-    <ul class="phone-thumbs imageSamples">
-        ${this._phone.images.map((image) => `<li>
-        <img src="${image}">
-      </li>`).join('')}
+    <ul class="phone-thumbs">
+      <li>
+        <img src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
+      </li>
+      <li>
+        <img src="img/phones/motorola-xoom-with-wi-fi.1.jpg">
+      </li>
+      <li>
+        <img src="img/phones/motorola-xoom-with-wi-fi.2.jpg">
+      </li>
+      <li>
+        <img src="img/phones/motorola-xoom-with-wi-fi.3.jpg">
+      </li>
+      <li>
+        <img src="img/phones/motorola-xoom-with-wi-fi.4.jpg">
+      </li>
+      <li>
+        <img src="img/phones/motorola-xoom-with-wi-fi.5.jpg">
+      </li>
     </ul>
+  </div>
+        `
+    }
 
-  </div>`;
-  }
 }

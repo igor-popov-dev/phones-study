@@ -1,32 +1,27 @@
-import {PhonesCatalogComponent} from "./phones-catalog/phones-catalog.component.js";
-import {PhonesService}          from "./phone.service.js";
-import {PhoneDetailsComponent}  from "./phone-details/phone-details.component.js"
-
+import {PhonesCatalogComponent} from './phones-catalog/phones-catalog.component.js'
+import {PhoneDetailsComponent} from './phone-details/phone-details.component.js'
+import {PhonesService} from './phones.service.js'
 export class PhonesComponent {
-  constructor({element}) {
-    this._element = element;
-    this._render();
-    this._catalog = new PhonesCatalogComponent({
-      element: this._element.querySelector('.phones-catalog'),
-      phones: PhonesService.getAll(),
-      onPhoneSelect: (phoneId) => {
-        const phoneDetails = PhonesService.getOneById(phoneId);
-        const onBackButtonClick = () => {
-          this._catalog.show();
-          this._details.hide();
-        };
-        this._catalog.hide();
-        this._details.show(phoneDetails, onBackButtonClick);
-      }
-    });
+    constructor({element}) {
+        this._element = element;
+        this._render();
+        this._catalog = new PhonesCatalogComponent({
+            element: this._element.querySelector('.phones-catalog'),
+            phones: PhonesService.getAll(),
+            onPhoneSelect: (phoneId) => {
+                const phonesDetails = PhonesService.getOneById(phoneId);
+                this._catalog.hide();
+                this._details.show(phonesDetails);
+            }
+        });
+        this._details = new PhoneDetailsComponent({
+            element: this._element.querySelector('.phone-details')
+        });
+    }
 
-    this._details = new PhoneDetailsComponent({
-      element: this._element.querySelector('.phone-details'),
-    })
-  }
-
-  _render() {
-    this._element.innerHTML = `<div class="row">
+    _render() {
+        this._element.innerHTML = `
+            <div class="row">
 
         <!--Sidebar-->
         <div class="col-md-2">
@@ -60,6 +55,7 @@ export class PhonesComponent {
             <div class="phones-catalog"></div>
             <div class="phone-details"></div>
         </div>
-    </div>`;
-  }
+    </div>`
+    }
+
 }
