@@ -228,7 +228,7 @@ export const PhonesService = new class {
     console.log(1);
   }
 
-  getAll({text, orderBy}) {
+  getAll({text = '', orderBy}) {
     const seachedPhones = this._filter(mockPhones, text);
     // http
     return seachedPhones;
