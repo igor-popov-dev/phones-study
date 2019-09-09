@@ -229,8 +229,7 @@ export const PhonesService = new class {
   }
 
   getAll({text, orderBy}) {
-      debugger
-    const seachedPhones = this._filter(mockPhones, text = '');
+    const seachedPhones = this._filter(mockPhones, text);
     // http
     return seachedPhones;
   }
